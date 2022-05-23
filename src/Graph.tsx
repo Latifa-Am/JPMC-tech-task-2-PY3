@@ -50,7 +50,7 @@ class Graph extends Component<IProps, {}> {
 
       // Adding more attributes to the element (configurable part of the table/graph)
       elem.load(this.table);
-      //‘view’ is the the kind of graph used to visualize the data. y_line is the closest continuous line graph that we want to be the final outcome
+      //‘view’ is the kind of graph used to visualize the data. y_line is the closest continuous line graph that we want to be the final outcome
       elem.setAttribute('view','y_line');
       //‘column-pivots’ allow us to distinguish stock ABC with DEF. We use ‘[“stock”]’ as its corresponding value 
       elem.setAttribute('column-pivots','["stock"]');
