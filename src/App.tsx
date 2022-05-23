@@ -25,7 +25,7 @@ class App extends Component<{}, IState> {
       // data saves the server responds.
       // We use this state to parse data down to the child element (Graph) as element property
       data: [],
-      //we set the property `showGraph` to false, which means the graph won't be showen until the use clicks ‘Start Streaming Data’
+      //we set the property `showGraph` to false, which means the graph won't be showen until the user clicks on ‘Start Streaming Data’
       showGraph: false,
     };
   }
@@ -34,7 +34,7 @@ class App extends Component<{}, IState> {
    * Render Graph react component with state.data parse as property data
    */
   renderGraph() {
-    // Render the graph only if the user clicks ‘Start Streaming Data’, in this case showGraph= true 
+    // Render the graph only if the user clicks on ‘Start Streaming Data’, in this case showGraph = true 
     if(this.state.showGraph){
       return (<Graph data={this.state.data}/>)
     }
