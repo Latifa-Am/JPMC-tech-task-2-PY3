@@ -14,7 +14,8 @@ interface IProps {
  * Perspective library adds load to HTMLElement prototype.
  * This interface acts as a wrapper for Typescript compiler.
  */
-interface PerspectiveViewerElement {
+//PerspectiveViewerElement behaves like an HTMLElement
+interface PerspectiveViewerElement extends HTMLElement{
   load: (table: Table) => void,
 }
 
@@ -32,7 +33,7 @@ class Graph extends Component<IProps, {}> {
 
   componentDidMount() {
     // Get element to attach the table from the DOM.
-    const elem: PerspectiveViewerElement = document.getElementsByTagName('perspective-viewer')[0] as unknown as PerspectiveViewerElement;
+    const elem = document.getElementsByTagName('perspective-viewer')[0] as unknown as PerspectiveViewerElement;
 
     const schema = {
       stock: 'string',
@@ -47,8 +48,23 @@ class Graph extends Component<IProps, {}> {
     if (this.table) {
       // Load the `table` in the `<perspective-viewer>` DOM reference.
 
-      // Add more Perspective configurations here.
+      // Adding more attributes to the element (configurable part of the table/graph)
       elem.load(this.table);
+      //‘view’ is the the kind of graph used to visualize the data. y_line is the closest continuous line graph that we want to be the final outcome
+      elem.setAttribute('view','y_line');
+      //‘column-pivots’ allow us to distinguish stock ABC with DEF. We use ‘[“stock”]’ as its corresponding value 
+      elem.setAttribute('column-pivots','["stock"]');
+      //‘row-pivots’ used for x-axis. It allows us to map each datapoint based on the timestamp it has
+      elem.setAttribute('row-pivots','["timestamp"]');
+      //‘columns’ is used to focus on a particular part of a stock’s data along the y-axis (top_ask_price, top_bid_price, stock, timestamp)
+      elem.setAttribute('columns','["top_ask_price"]');
+      //‘aggregates’ allow us to handle the duplicated data
+      elem.setAttribute('aggregates',`
+        {"stock":"distinct count",
+        "top_ask_price":"avg",
+        "top_bid_price":"avg",
+        "timestamp":"distinct count"}`);
+
     }
   }
 
